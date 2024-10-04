@@ -5,9 +5,13 @@ using UnityEngine;
 public class Shell : MonoBehaviour
 {
     public GameObject explosion;
-    public float speed = 3.0f;
+    float speed = 0f;
+    float yspeed = 0f;
     float mass = 10f;
-    float force = 1000f;
+    float force = 2f;
+    float drag = 10f;
+    float gravity = -9.81f;
+    float gravityAcceleration;
     float accelaration;
 
 
@@ -25,14 +29,16 @@ public class Shell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        accelaration = force / mass; 
+        speed += accelaration * 1f;
+        gravityAcceleration = gravity/mass;  
     }
 
     // Update is called once per frame
     void LateUpdate()
-    {
-        accelaration = force / mass;
-        speed += accelaration * Time.deltaTime;        
-        this.transform.Translate(0, 0, Time.deltaTime * speed);
+    {       
+        speed *= (1-Time.deltaTime * drag);
+        yspeed += gravityAcceleration * Time.deltaTime;
+        this.transform.Translate(0, yspeed, speed);
     }
 }
