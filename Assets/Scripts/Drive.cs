@@ -7,6 +7,11 @@ public class Drive : MonoBehaviour
     public float speed = 10.0f;
     public float rotationSpeed = 100.0f;
 
+    public Transform transGun;
+    public Transform Gun;
+    public Transform Bullet;
+
+
     void Update()
     {
         // Get the horizontal and vertical axis.
@@ -24,5 +29,21 @@ public class Drive : MonoBehaviour
 
         // Rotate around our y-axis
         transform.Rotate(0, rotation, 0);
+
+        if(Input.GetKey(KeyCode.T))
+        {
+            transGun.RotateAround(transGun.position,transGun.right,-0.2f);
+        }
+
+        else if(Input.GetKey(KeyCode.G))
+
+        {
+            transGun.RotateAround(transGun.position,transGun.right,0.2f);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            Instantiate(Bullet, Gun.position, Gun.rotation);
+        }
     }
 }
